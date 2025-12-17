@@ -1,0 +1,20 @@
+---
+import { Image } from 'astro:assets';
+const { description, date, img } = Astro.props;
+---
+<article>
+    <img />
+    <div>
+        <!-- <Image src={import.meta.env.STRAPI_URL+`${img.url}`} alt={img.alt}/> -->
+         <img src={import.meta.env.STRAPI_URL+`${img.url}`} alt={img.alt} />
+        <p>{description}</p>
+        <p>{date}</p>
+    </div>
+</article>
+
+<style>
+    article {
+        width: 100%;
+        background-color: antiquewhite;
+    }
+</style>

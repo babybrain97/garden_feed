@@ -6,14 +6,20 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "generate-api-types": "openapi-typescript ../strapi/specification.json -o ./src/api/schema.d.ts && prettier --write ./src/api/schema.d.ts"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.1",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "astro": "^5.15.3",
+    "openapi-fetch": "^0.15.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "openapi-typescript": "^7.10.1",
+    "prettier": "^3.7.4"
   }
 }

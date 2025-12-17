@@ -1,0 +1,36 @@
+---
+import Post from "./Post.astro";
+import fetchApi from '../lib/strapi';
+import type  IPost from "../interfaces/post";
+import {strapiClient} from "../api/client"
+
+const {data, error} = await strapiClient.GET('/posts', {params: {query: {populate: 'Image'}}})
+---
+
+	<main>
+		<!-- <Post /> -->
+		{data?.data?.map((post)=> <Post description={post.Description} date={post.Date} img={post.Image}/>)}
+		<!-- {data?.map((post)=> <Post description={post.description} date={post.date}/>)} -->
+	</main>
+
+<style>
+	main {
+		font-family: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 0 16px;
+
+	}
+
+	@media screen and (max-height: 368px) {
+		#news {
+			display: none;
+		}
+	}
+
+	@media screen and (max-width: 768px) {
+		
+	}
+</style>

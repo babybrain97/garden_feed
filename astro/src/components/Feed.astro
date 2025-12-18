@@ -1,27 +1,38 @@
 ---
 import Post from "./Post.astro";
-import fetchApi from '../lib/strapi';
-import type  IPost from "../interfaces/post";
-import {strapiClient} from "../api/client"
+import { strapiClient } from "../api/client";
 
-const {data, error} = await strapiClient.GET('/posts', {params: {query: {populate: 'Image'}}})
+const { data, error } = await strapiClient.GET("/posts", {
+	params: { query: { populate: "Image" } },
+});
 ---
 
-	<main>
-		<!-- <Post /> -->
-		{data?.data?.map((post)=> <Post description={post.Description} date={post.Date} img={post.Image}/>)}
-		<!-- {data?.map((post)=> <Post description={post.description} date={post.date}/>)} -->
-	</main>
+<main>
+	{error != null && <p>oh noo are you connected pal?</p>}
+	{
+		data?.data != null &&
+			data?.data?.map((post) => (
+				<Post
+					description={post.Description!}
+					date={post.Date!}
+					url={post.Image!.url}
+					alt={post.Image!.alternativeText!}
+				/>
+			))
+	}
+</main>
 
 <style>
 	main {
-		font-family: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
+		font-family:
+			Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans", Arial,
+			sans-serif;
 		height: 100%;
 		display: flex;
 		flex-direction: column;
+		gap: 16px;
 		align-items: center;
 		padding: 0 16px;
-
 	}
 
 	@media screen and (max-height: 368px) {
@@ -31,6 +42,5 @@ const {data, error} = await strapiClient.GET('/posts', {params: {query: {populat
 	}
 
 	@media screen and (max-width: 768px) {
-		
 	}
 </style>
